@@ -9,7 +9,7 @@ const allPosts = await getCollection("posts");
   <h1 class="mb-4">Posts</h1>
   <ul>
     {
-      allPosts.map((post: { slug: string; data: { title: string } }) => (
+      allPosts.map((post) => (
         <li>
           <a href={`/posts/${post.slug}`}>{post.data.title}</a>
         </li>

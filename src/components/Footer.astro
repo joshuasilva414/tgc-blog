@@ -1,0 +1,22 @@
+---
+import { Linkedin, Github, Twitter, Mail } from "lucide-astro";
+---
+
+<footer class="p-3 pt-6 border-t border-slate-100/50">
+  <div class="flex justify-between px-8">
+    <p
+      class="w-fit [&>a]:text-green-400 hover:[&>a]:text-green-500 [&>a]:underline"
+    >
+      Made by <a href="https://joshuasilva.me">Joshua Silva</a> using <a
+        href="https://astro.build"
+        class="">{Astro.generator}</a
+      >
+    </p>
+    <div class="flex gap-x-2 hover:[&>a]:text-slate-300/75">
+      <a href="https://linkedin.com/in/joshuasilva414"><Linkedin /></a>
+      <a href="https://github.com/joshuasilva414"><Github /></a>
+      <a href="https://twitter.com/joshsilvafrfr"><Twitter /></a>
+      <a href="mailto:joshuasilva414@gmail.com"><Mail /></a>
+    </div>
+  </div>
+</footer>

@@ -9,11 +9,15 @@ const allPosts = await getCollection("posts");
   <h1 class="mb-4">Posts</h1>
   <ul>
     {
-      allPosts.map((post) => (
-        <li>
-          <a href={`/posts/${post.slug}`}>{post.data.title}</a>
-        </li>
-      ))
+      allPosts.length > 0 ? (
+        allPosts.map((post) => (
+          <li>
+            <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+          </li>
+        ))
+      ) : (
+        <h2>First post coming soon!</h2>
+      )
     }
   </ul>
 </BaseLayout>

@@ -1,5 +1,6 @@
 ---
 title: "Hello, World!"
+slug: "hello-world"
 pubDate: 2024-07-3
 description: 'This is the first post of my new Astro blog entitled "The Garbage Collection".'
 author: "Joshua Silva"

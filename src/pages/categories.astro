@@ -1,0 +1,51 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const allPosts = await getCollection("posts");
+
+const catMap = new Map();
+
+allPosts.forEach((post) => {
+  post.data.tags.forEach((tag: string) => {
+    if (!catMap.has(tag)) {
+      catMap.set(tag, []);
+    }
+    catMap.get(tag).push(post);
+  });
+});
+
+const catArray = Array.from(
+  catMap,
+  ([tag, posts]: [string, CollectionEntry<"posts">[]]) => ({
+    tag,
+    posts,
+  })
+);
+---
+
+<BaseLayout pageTitle="Categories">
+  <div class="flex gap-8">
+    {
+      catArray.map(({ tag, posts }) => (
+        <div>
+          <h2 class="mb-2">{tag}</h2>
+          <div>
+            <ul>
+              {posts.map((post: CollectionEntry<"posts">) => (
+                <li>
+                  <a
+                    href={`/posts/${post.slug}`}
+                    class="text-lime-100 underline"
+                  >
+                    {post.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</BaseLayout>

@@ -1,13 +1,12 @@
 ---
-title: "Hello, World!"
-layout: "../../layouts/PostLayout.astro"
+title: "Hello Again!"
 pubDate: 2024-07-3
-description: 'This is the first post of my new Astro blog entitled "The Garbage Collection".'
+description: "This is just a second test post to see how Astro handles multiple posts."
 author: "Joshua Silva"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
   alt: "The Astro logo on a dark background with a pink glow."
-tags: ["astro", "blogging", "learning in public"]
+tags: ["blogging", "dev-log"]
 ---
 
 Welcome to my _new blog_ about learning Astro! Here, I will share my learning journey as I build a new website.

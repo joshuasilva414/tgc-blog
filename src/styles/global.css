@@ -10,6 +10,10 @@ h1 {
     @apply text-4xl mb-2;
 }
 
+h2 {
+    @apply text-2xl
+}
+
 h1,
 h2 {
     @apply text-green-400;
@@ -21,4 +25,8 @@ strong {
 
 em {
     @apply text-lime-50
+}
+
+p {
+    @apply mb-[1.5lh]
 }

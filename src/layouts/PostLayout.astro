@@ -24,7 +24,20 @@ const { frontmatter } = Astro.props;
 
       <Sidebar />
     </div>
-  </div>
+  </div>{
+    frontmatter.tags && frontmatter.tags.length > 0 && (
+      <div class="tags flex gap-2">
+        <p>Tags:</p>
+        <ul class="flex flex-wrap gap-2 hover:underline text-green-400">
+          {frontmatter.tags.map((tag: string) => (
+            <li>
+              <a href={`/tags/${tag}`}>{tag}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 </BaseLayout>
 <style>
   div#content-container > * {

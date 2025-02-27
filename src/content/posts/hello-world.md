@@ -9,7 +9,6 @@ image:
   alt: The Astro logo on a dark background with a pink glow.
 tags:
   - learning-in-public
-  - dev-log
 ---
 
 Welcome to my _new blog_ about technology and whatever else I want! Here I will share things I learning on my journey to become a successful software engineer.

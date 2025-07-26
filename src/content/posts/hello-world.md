@@ -23,7 +23,7 @@ I think the biggest worry for me was has been feeling like I'm simply not qualif
 
 #### **Not the Right Stack**
 
-Each time I began developing this blog, I would always make the decision to add some new technology to my tech stack. Sometimes, the new technology was what inspired me to attempt to develop the site again. So what did I do this time that stuck? Did I find the write stack?
+Each time I began developing this blog, I would always make the decision to add some new technology to my tech stack. Sometimes, the new technology was what inspired me to attempt to develop the site again. So what did I do this time that stuck? Did I find the right stack?
 
 It probably helped a ton that when I came back to Astro this time, the docs had a tutorial that was geared toward this particular use case, easing my concerns about the appropriate stack. The thing I think was most helpful though was yet another change to my mindset: "Just build it". Rather than worry at all about the tech stack, I decided that it was more important to just make the damn thing. Refactoring and optimization can come later. What matters more is _the content_ on the site given that blogs are inherently _content driven_. Once I got that down, the last thing was to figure out when I would have time to make said blog content.
 

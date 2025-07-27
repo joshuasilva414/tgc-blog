@@ -1,5 +1,5 @@
 import { asDrizzleTable } from "@astrojs/db/utils";
-import { db, FALSE, isDbError } from "astro:db";
+import { db } from "astro:db";
 import { nanoid } from "nanoid";
 import { Posts } from "./config";
 
@@ -10,9 +10,10 @@ export default async function seed() {
     .insert(typeSafePosts)
     .values([
       {
+        id: nanoid(6),
         title: "Hello, World!",
         slug: "hello-world",
-        pubDate: new Date("2024-07-6"),
+        pubDate: new Date("2024-07-06"),
         description:
           "This is the first post of my new Astro blog entitled 'The Garbage Collection'.",
         author: "Joshua Silva",
@@ -24,9 +25,10 @@ export default async function seed() {
         draft: false,
       },
       {
+        id: nanoid(6),
         title: "Hello, World!",
         slug: "hello-world2",
-        pubDate: new Date("2024-07-6"),
+        pubDate: new Date("2024-07-06"),
         description:
           "This is the first post of my new Astro blog entitled 'The Garbage Collection'.",
         author: "Joshua Silva",

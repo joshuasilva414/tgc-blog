@@ -1,9 +1,9 @@
-import { defineTable, defineDb, column, sql, TRUE } from "astro:db";
-import { nanoid } from "nanoid";
+import { defineTable, defineDb, column } from "astro:db";
 
 export const Posts = defineTable({
   columns: {
-    id: column.text({ primaryKey: true, default: sql`${nanoid(6)}` }),
+    // Let the seed script generate the id instead of relying on a per-row SQL default
+    id: column.text({ primaryKey: true }),
     title: column.text(),
     slug: column.text({ unique: true }),
     pubDate: column.date(),

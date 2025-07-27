@@ -1,0 +1,7 @@
+{
+  "name": "tgc-blog",
+  "compatibility_date": "2025-07-12",
+  "assets": {
+    "directory": "./public"
+  }
+}

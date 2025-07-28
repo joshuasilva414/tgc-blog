@@ -1,25 +1,38 @@
+import { asDrizzleTable } from "@astrojs/db/utils";
 import type { LoaderContext } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
-import { Posts, db } from "astro:db";
+import { db } from "astro:db";
+import { Posts } from "../db/config";
 import { eq } from "astro:db";
 import { FALSE } from "astro:db";
 
+type Post = {
+  id: string;
+  title: string;
+  slug: string;
+  pubDate: Date;
+  description: string;
+  author: string;
+  draft: boolean;
+};
+
 const posts = defineCollection({
-  loader: async () => {
+  loader: async (): Promise<Post[]> => {
+    const typeSafePosts = asDrizzleTable("Posts", Posts);
     const selectedPosts = await db
       .select({
-        id: Posts.id,
-        title: Posts.title,
-        slug: Posts.slug,
-        pubDate: Posts.pubDate,
-        description: Posts.description,
-        author: Posts.author,
-        draft: Posts.draft,
+        title: typeSafePosts.title,
+        slug: typeSafePosts.slug,
+        pubDate: typeSafePosts.pubDate,
+        description: typeSafePosts.description,
+        author: typeSafePosts.author,
+        draft: typeSafePosts.draft,
+        tags: typeSafePosts.tags,
       })
-      .from(Posts)
-      .where(() => eq(Posts.draft, FALSE));
+      .from(typeSafePosts)
+      .where(() => eq(typeSafePosts.draft, FALSE));
 
-    return selectedPosts;
+    return selectedPosts.map((p) => ({ ...p, id: p.slug }));
   },
   schema: z.object({
     id: z.string(),
@@ -32,7 +45,7 @@ const posts = defineCollection({
     //   url: z.string(),
     //   alt: z.string(),
     // }),
-    // tags: z.array(z.string()),
+    tags: z.array(z.string()),
     draft: z.boolean(),
   }),
 });

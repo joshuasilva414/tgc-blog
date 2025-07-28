@@ -2,37 +2,38 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const posts = await getCollection("Posts");
 
   // Get unique tags
-  // const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 
   // Return path for each tag
-  // return tags.map((tag) => ({
-  //   params: { tag },
-  //   props: {
-  //     posts: posts.filter(
-  //       (post) =>
-  //         post.data.tags?.includes(tag) &&
-  //         (import.meta.env.PROD ? !post.data.draft : true)
-  //     ),
-  //   },
-  // }));
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: posts.filter((post) => post.data.tags?.includes(tag)),
+    },
+  }));
 }
 
 const { tag } = Astro.params;
+const { posts } = Astro.props;
 ---
 
 <BaseLayout pageTitle={`Posts tagged with ${tag}`}>
   <h1>Posts tagged with "{tag}"</h1>
   <ul>
     {
-      // posts.map((post) => (
-      //   <li>
-      //     <a href={`/posts/${post.data.slug}`}>{post.data.title}</a>
-      //   </li>
-      // ))
+      posts?.map((post) => (
+        <li>
+          <a class="underline" href={`/posts/${post.data.slug}`}>
+            {post.data.title}
+          </a>
+        </li>
+      ))
     }
   </ul>
   <a href="/tags">All Tags</a>

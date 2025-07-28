@@ -2,23 +2,21 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("Posts", ({ data }) => {
-  return !data.draft;
-});
+const posts = await getCollection("Posts");
 
 // Get unique tags from all posts
-// const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 ---
 
 <BaseLayout pageTitle="Tags">
   <h1>Tags</h1>
   <ul>
     {
-      // tags.map((tag) => (
-      //   <li>
-      //     <a href={`/tags/${tag}`}>{tag}</a>
-      //   </li>
-      // ))
+      tags.map((tag) => (
+        <li>
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </li>
+      ))
     }
   </ul>
 </BaseLayout>

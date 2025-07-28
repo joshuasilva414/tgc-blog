@@ -12,7 +12,9 @@ const allPosts = await getCollection("Posts");
       allPosts.length > 0 ? (
         allPosts.map((post) => (
           <li>
-            <a href={`/posts/${post.id}`}>{post.data.title}</a>
+            <a class="underline" href={`/posts/${post.id}`}>
+              {post.data.title}
+            </a>
           </li>
         ))
       ) : (

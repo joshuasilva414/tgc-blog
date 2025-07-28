@@ -20,6 +20,9 @@ importers:
       '@astrojs/tailwind':
         specifier: ^6.0.2
         version: 6.0.2(astro@5.12.3(@types/node@24.0.13)(jiti@1.21.6)(rollup@4.45.0)(typescript@5.5.3)(yaml@2.7.0))(tailwindcss@3.4.4)
+      '@astropub/md':
+        specifier: ^1.0.0
+        version: 1.0.0(@astrojs/markdown-remark@6.3.3)
       '@aws-sdk/client-s3':
         specifier: ^3.844.0
         version: 3.844.0
@@ -112,6 +115,11 @@ packages:
 
   '@astrojs/yaml2ts@0.2.2':
     resolution: {integrity: sha512-GOfvSr5Nqy2z5XiwqTouBBpy5FyI6DEe+/g/Mk5am9SjILN1S5fOEvYK0GuWHg98yS/dobP4m8qyqw/URW35fQ==}
+
+  '@astropub/md@1.0.0':
+    resolution: {integrity: sha512-++urcyulQogbLAF0VC2rEp6qLUfnRX9iaDREAkN1su9fF8V84DVaMHbQXn7qqQ27wYT5AVVeoK+4+vggYYVbQg==}
+    peerDependencies:
+      '@astrojs/markdown-remark': ^5
 
   '@aws-crypto/crc32@5.2.0':
     resolution: {integrity: sha512-nLbCWqQNgUiwwtFsen1AdzAtvuLRsQS8rYgMuxCrdKf9kOssamGLuPwyTY9wyYblNr9+1XM8v6zoDTPPSIeANg==}
@@ -3437,6 +3445,10 @@ snapshots:
   '@astrojs/yaml2ts@0.2.2':
     dependencies:
       yaml: 2.7.0
+
+  '@astropub/md@1.0.0(@astrojs/markdown-remark@6.3.3)':
+    dependencies:
+      '@astrojs/markdown-remark': 6.3.3
 
   '@aws-crypto/crc32@5.2.0':
     dependencies:

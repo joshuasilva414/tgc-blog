@@ -3,5 +3,13 @@
   "compatibility_date": "2025-07-12",
   "assets": {
     "directory": "./public"
-  }
+  },
+    // Add this to your wrangler.jsonc
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "27a7349345b0422e84a746e83a1d8c93",
+    }
+  ]
+  
 }

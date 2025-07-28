@@ -1,10 +1,8 @@
 import { asDrizzleTable } from "@astrojs/db/utils";
-import type { LoaderContext } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 import { db } from "astro:db";
 import { Posts } from "../db/config";
 import { eq } from "astro:db";
-import { FALSE } from "astro:db";
 
 type Post = {
   id: string;
@@ -14,6 +12,7 @@ type Post = {
   description: string;
   author: string;
   draft: boolean;
+  tags: string[];
 };
 
 const posts = defineCollection({
@@ -30,9 +29,13 @@ const posts = defineCollection({
         tags: typeSafePosts.tags,
       })
       .from(typeSafePosts)
-      .where(() => eq(typeSafePosts.draft, FALSE));
+      .where(() => eq(typeSafePosts.draft, false));
 
-    return selectedPosts.map((p) => ({ ...p, id: p.slug }));
+    return selectedPosts.map((p) => ({
+      ...p,
+      id: p.slug,
+      tags: p.tags as string[],
+    }));
   },
   schema: z.object({
     id: z.string(),
@@ -41,10 +44,6 @@ const posts = defineCollection({
     pubDate: z.date(),
     description: z.string(),
     author: z.string(),
-    // image: z.object({
-    //   url: z.string(),
-    //   alt: z.string(),
-    // }),
     tags: z.array(z.string()),
     draft: z.boolean(),
   }),

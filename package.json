@@ -12,9 +12,9 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.6.0",
-    "@astrojs/db": "^0.15.0",
     "@astrojs/tailwind": "^6.0.2",
     "@aws-sdk/client-s3": "^3.844.0",
+    "gray-matter": "^4.0.3",
     "@fontsource/dm-mono": "^5.0.20",
     "@astropub/md": "^1.0.0",
     "astro": "^5.12.3",

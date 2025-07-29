@@ -1,8 +1,5 @@
-import { asDrizzleTable } from "@astrojs/db/utils";
 import { defineCollection, z } from "astro:content";
-import { db } from "astro:db";
-import { Posts } from "../db/config";
-import { eq } from "astro:db";
+import { getAllPostMetadata } from "./utils/s3";
 
 type Post = {
   id: string;
@@ -17,25 +14,9 @@ type Post = {
 
 const posts = defineCollection({
   loader: async (): Promise<Post[]> => {
-    const typeSafePosts = asDrizzleTable("Posts", Posts);
-    const selectedPosts = await db
-      .select({
-        title: typeSafePosts.title,
-        slug: typeSafePosts.slug,
-        pubDate: typeSafePosts.pubDate,
-        description: typeSafePosts.description,
-        author: typeSafePosts.author,
-        draft: typeSafePosts.draft,
-        tags: typeSafePosts.tags,
-      })
-      .from(typeSafePosts)
-      .where(() => eq(typeSafePosts.draft, false));
-
-    return selectedPosts.map((p) => ({
-      ...p,
-      id: p.slug,
-      tags: p.tags as string[],
-    }));
+    const posts = await getAllPostMetadata();
+    // Filter out drafts and assert type
+    return posts.filter((p) => !p.draft) as Post[];
   },
   schema: z.object({
     id: z.string(),

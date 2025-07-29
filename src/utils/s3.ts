@@ -36,17 +36,44 @@ const getPostContent = async (slug: string) => {
 };
 
 const streamToString = async (stream: any): Promise<string> => {
+  // Case 1: body has a .text() method (Blob, Response, etc.)
   if (typeof stream?.text === "function") {
     return stream.text();
   }
 
-  return new Promise((resolve, reject) => {
-    const chunks: Uint8Array[] = [];
+  // Case 2: Web standard ReadableStream
+  if (typeof stream?.getReader === "function") {
+    const reader = stream.getReader();
+    const decoder = new TextDecoder();
+    let result = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      result += decoder.decode(value, { stream: true });
+    }
+    return result;
+  }
 
-    stream.on("data", (chunk: Uint8Array) => chunks.push(chunk));
-    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
-    stream.on("error", reject);
-  });
+  // Case 3: Async iterable (Node.js Readable)
+  if (Symbol.asyncIterator in Object(stream)) {
+    const chunks: Uint8Array[] = [];
+    for await (const chunk of stream) {
+      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+    }
+    return Buffer.concat(chunks).toString("utf-8");
+  }
+
+  // Case 4: EventEmitter style (legacy Node streams)
+  if (typeof stream?.on === "function") {
+    return new Promise((resolve, reject) => {
+      const chunks: Uint8Array[] = [];
+      stream.on("data", (chunk: Uint8Array) => chunks.push(chunk));
+      stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+      stream.on("error", reject);
+    });
+  }
+
+  throw new Error("Unsupported stream type returned from S3 client");
 };
 
 // Add helper to list all post slugs stored under the `posts/` prefix
